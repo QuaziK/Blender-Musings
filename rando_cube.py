@@ -10,10 +10,12 @@ C = bpy.context
 D = bpy.data
 CUBE_SIZE = 2
 VECTOR_THRESHHOLD = vector_len(mathutils.Vector((CUBE_SIZE,CUBE_SIZE,CUBE_SIZE)))
+CUBE_NUM = 15
+AREA = 10
 
-for _ in range(15):
+for _ in range(CUBE_NUM):
 
-    x, y, z = random.randint(-5,5),random.randint(-5,5),random.randint(-5,5)
+    x, y, z = random.randint(-AREA,AREA),random.randint(-AREA,AREA),random.randint(-AREA,AREA)
 
     flag = True
 
