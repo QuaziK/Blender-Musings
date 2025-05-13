@@ -8,10 +8,10 @@ def vector_len(v1):
 
 C = bpy.context
 D = bpy.data
-CUBE_SIZE = 2
+CUBE_SIZE = 3
 VECTOR_THRESHHOLD = vector_len(mathutils.Vector((CUBE_SIZE,CUBE_SIZE,CUBE_SIZE)))
 CUBE_NUM = 15
-AREA = 10
+AREA = 5
 
 for _ in range(CUBE_NUM):
 
@@ -25,12 +25,10 @@ for _ in range(CUBE_NUM):
             
     if flag:    
         bpy.ops.mesh.primitive_cube_add(size=CUBE_SIZE, enter_editmode=False, align='WORLD', location=(x,y,z), scale=(1, 1, 1))
+        obj = C.selected_objects[-1]
+        mod = obj.modifiers.new("Bevel", 'BEVEL')
+        mod.width = .4
+        mod.segments = 4
+        bpy.ops.object.shade_auto_smooth()
 
-bpy.ops.object.select_all(action='SELECT')
-
-for obj in C.selected_objects:
-    mod = obj.modifiers.new("Bevel", 'BEVEL')
-    mod.width = .4
-    mod.segments = 4
-    
-bpy.ops.object.shade_auto_smooth()
+bpy.ops.object.select_all(action='DESELECT')
