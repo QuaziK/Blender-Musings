@@ -12,15 +12,22 @@ cloud_mesh = C.selected_objects[-1]
 bpy.ops.object.modifier_add(type='SUBSURF')
 C.object.modifiers["Subdivision"].render_levels = 1
 
-# create cloud texture
-tex = D.textures.new("Cloud", 'CLOUDS')
-tex.noise_scale = 1
+# create cloud mesh texture
+cloud_mesh_tex = D.textures.new("Cloud Mesh", 'CLOUDS')
+cloud_mesh_tex.noise_scale = 1
+
+# create cloud volume texture
+cloud_mesh_tex = D.textures.new("Cloud Volume", 'CLOUDS')
+cloud_mesh_tex.noise_scale = .6
 
 # add displacement modifier
 modifier = cloud_mesh.modifiers.new(name="Displace", type='DISPLACE')
 
 # set texture to cloud texture
-modifier.texture = D.textures['Cloud']
+modifier.texture = D.textures["Cloud Mesh"]
+
+# set displace strength
+modifier.strength = 2
 
 # hide in render and viewport
 cloud_mesh.hide_render = True
@@ -37,4 +44,14 @@ C.object.modifiers["Mesh to Volume"].voxel_amount = 200
 
 # add volume displace modifier and set texture
 modifier = cloud_volume.modifiers.new(name="Volume Displace", type='VOLUME_DISPLACE')
-modifier.texture = D.textures['Cloud']
+modifier.texture = D.textures["Cloud Volume"]
+modifier.strength = 1
+
+# create volume material
+volume_material = D.materials.new('Cloud Material')
+volume_material.use_nodes = True
+#volume_material.node_tree.nodes["Principled Volume"].color = Color((0,0,0))
+#volume_material.node_tree.nodes["Principled Volume"].density = .6
+
+# set volume material
+cloud_volume.data.materials.append(volume_material)
