@@ -50,8 +50,8 @@ modifier.strength = 1
 # create volume material
 volume_material = D.materials.new('Cloud Material')
 volume_material.use_nodes = True
-#volume_material.node_tree.nodes["Principled Volume"].color = Color((0,0,0))
-#volume_material.node_tree.nodes["Principled Volume"].density = .6
+volume_material.node_tree.nodes["Principled Volume"].inputs["Color"].default_value = (1, 1, 1, 1)
+volume_material.node_tree.nodes["Principled Volume"].inputs["Density"].default_value = .6
 
 # set volume material
 cloud_volume.data.materials.append(volume_material)
