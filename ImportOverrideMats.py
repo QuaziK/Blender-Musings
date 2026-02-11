@@ -1,5 +1,7 @@
 import bpy
 
+# Path to Asset Lib.blend
+# TODO add ability to use multiple libraries
 src_file = "C:\\Users\\Yegor\\Documents\\blender\\Warframe Asset Libs\\Asset Lib (Grineer).blend" 
 
 D = bpy.data
