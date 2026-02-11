@@ -40,7 +40,7 @@ for o in D.objects:
 # purge all unused data blocks
 bpy.ops.outliner.orphans_purge(do_local_ids=True, do_linked_ids=True, do_recursive=True)
 
-# the remaining materials all have .001 at the end
+# remove the .001 at end of replaced materials
 for mat in D.materials:
     mat.name = mat.name.split('.')[0]
 
