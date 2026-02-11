@@ -15,6 +15,8 @@ for o in D.objects:
     for slot in o.material_slots:
         slot.material = D.materials.get(slot.material.name.split('.')[0])
 
+bpy.ops.outliner.orphans_purge(do_local_ids=True)        
+
 # load materials to replace with
 with D.libraries.load(src_file, link=True) as (src, me):
     # TODO if material names have different capitalization, this fails to find them
@@ -30,6 +32,7 @@ for mat in me.materials:
 for o in D.objects:
     for slot in o.material_slots:
         try:
+            # the replacement material has .001 at the end since it had the same name when it was appended
             slot.material = replacements[str(slot.material.name.split('.')[0])+".001"]
         except:
             print(f'No replacement for {slot.material.name}')
@@ -37,4 +40,7 @@ for o in D.objects:
 # purge all unused data blocks
 bpy.ops.outliner.orphans_purge(do_local_ids=True, do_linked_ids=True, do_recursive=True)
 
-# TODO the remaining materials all have .001 at the end
+# the remaining materials all have .001 at the end
+for mat in D.materials:
+    mat.name = mat.name.split('.')[0]
+
